@@ -1,3 +1,7 @@
+const inquirer = require('inquirer');
+const fs = require('fs');
+// const generatePage = require('./src/page-template');
+
 // TODO: Include packages needed for this application
 
 // TODO: Create an array of questions for user input
