@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const fsPromises = fs.promises
-const generateMarkdown = require('./utils/generateMarkdown.js');
+const markdown = require('./utils/generateMarkdown.js');
 // const generatePage = require('./src/page-template');
 
 // TODO: Include packages needed for this application
@@ -98,12 +98,29 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, err => {
+        err ? console.error(err) : console.log("Created File.")
+     }); 
+}
 
 // TODO: Create a function to initialize app
-function init() {}
-
+async function init (prompt){
+    try {
+        const answers = await inquirer.prompt(prompt);
+        console.log("Gathered response.")
+        let generateMarkdown= await markdown(answers);
+        console.log("Generating README file...");
+        writeToFile('./dist/README.md', generateMarkdown)
+    }
+    catch (err) {
+            message.innerHTML = "Input " + err;
+    }
+    finally {
+        console.log("Your README file has been generated.")
+    }
+}
 // Function call to initialize app
-init();
+init(questions);
 
 
