@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const markdown = require('./utils/generateMarkdown.js');
-// const generatePage = require('./src/page-template');
+
 
 // TODO: Include packages needed for this application
 
@@ -26,7 +26,7 @@ const questions = [
         type: 'checkbox',
         name: 'license',
         message: 'What license would you like to put on your program?',
-        choices: ["MIT", "GNU AGPLv3", "GNU GPLv3" , "GNU LGPLv3", "Mozilla 2.0", "Apache 2.0"], 
+        choices: ["MIT", "Apache 2.0", "ECL 2.0", "Mozilla"], 
         default: ["None"]
     },
 
@@ -117,7 +117,7 @@ async function init (prompt){
         writeToFile('./dist/README.md', generateMarkdown)
     }
     // catch (err) {
-    //         message.innerHTML = "Input " + err;
+    //        console.log("Error" + err);
     // }
     finally {
         console.log("Your README file has been generated.")
