@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const fsPromises = fs.promises
 const markdown = require('./utils/generateMarkdown.js');
 // const generatePage = require('./src/page-template');
 
@@ -27,8 +26,10 @@ const questions = [
         type: 'checkbox',
         name: 'license',
         message: 'What license would you like to put on your program?',
-        choices: ["None", "MIT", "GNU AGPLv3", "GNU GPLv3" , "GNU LGPLv3", "Mozilla 2.0", "Apache 2.0"]
+        choices: ["MIT", "GNU AGPLv3", "GNU GPLv3" , "GNU LGPLv3", "Mozilla 2.0", "Apache 2.0"], 
+        default: ["None"]
     },
+
     {
         type:'input',
         name:'description',
@@ -46,26 +47,26 @@ const questions = [
     {
         type: 'input',
         name: 'installation',
-        message: 'What are the steps required to install your project? (enter blank if none)',
-        default: false
+        message: 'What are the steps required to install your project?',
+        default: ["None"]
     },
     {
         type: 'input',
         name: 'usage',
-        message: 'Provide instructions and examples for use. (enter blank if none)',
-        default: false
+        message: 'Provide instructions and examples for use.',
+        default: ["None"]
     },
     {
         type: 'input',
         name: 'contributing',
-        message: 'List your collaborators, if any, with links to their GitHub profiles. (enter blank if none)',
-        default: false
+        message: 'List your collaborators, if any, with links to their GitHub profiles.',
+        default: ["None"]
     },
     {
         type: 'input',
         name: 'tests',
-        message: 'Provide exmaples of tests and how to run them here. (enter blank if none)',
-        default: false
+        message: 'Provide exmaples of tests and how to run them here.',
+        default: ["None"]
     },
     // End Section 
     // Start of Question section
@@ -99,9 +100,11 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, err => {
+    fs.writeFile(fileName, data, (err) => {
         err ? console.error(err) : console.log("Created File.")
-     }); 
+     },
+     ); 
+
 }
 
 // TODO: Create a function to initialize app
@@ -113,9 +116,9 @@ async function init (prompt){
         console.log("Generating README file...");
         writeToFile('./dist/README.md', generateMarkdown)
     }
-    catch (err) {
-            message.innerHTML = "Input " + err;
-    }
+    // catch (err) {
+    //         message.innerHTML = "Input " + err;
+    // }
     finally {
         console.log("Your README file has been generated.")
     }
