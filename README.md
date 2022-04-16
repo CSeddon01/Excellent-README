@@ -22,7 +22,7 @@
 
   ## Installation
 
-  None
+  npm init  npm install node npm install inquirer
 
   ## Usage
 
